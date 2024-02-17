@@ -81,7 +81,7 @@ app.get('/movies/:movieId/', async (request, response) => {
   const movieDetailsQuery = `
     SELECT * FROM movie WHERE movie_id = ${movieId}; 
   `
-  const movieArray = await db.get(movieDetailsQuery)
+  const movieArray = [await db.get(movieDetailsQuery)] // Putting movieArray object inside an Array to overcome TypeError .map is not a function
   console.log(movieArray)
 
   const desiredREsult = movieArray.map((eachMovie, index, arr) =>
