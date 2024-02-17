@@ -91,3 +91,21 @@ app.get('/movies/:movieId/', async (request, response) => {
     response.send(result)
   }
 })
+
+//API to Adding Movie Details using PUT
+app.put('/movies/:movieId/', async (request, response) => {
+  const {movieId} = request.params
+  const updateDetailsOfMovie = request.body
+  const {directorId, movieName, leadActor} = updateDetailsOfMovie
+  const updateDetailsQuery = `
+    UPDATE movie
+    SET 
+    director_id = ${directorId},
+    movie_name = '${movieName}',
+    lead_actor = '${leadActor}' 
+    WHERE movie_id = ${movieId};
+  `
+
+  const dbResposne = await db.run(updateDetailsQuery)
+  response.send('Movie Details Updated')
+})
