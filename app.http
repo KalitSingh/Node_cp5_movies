@@ -25,4 +25,8 @@ Content-Type: application/json
   "directorId": 24,
   "movieName": "Thor",
   "leadActor": "Christopher Hemsworth"
-}
+} 
+
+
+### 
+DELETE http://localhost:3000/movies/115

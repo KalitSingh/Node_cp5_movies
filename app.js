@@ -109,3 +109,13 @@ app.put('/movies/:movieId/', async (request, response) => {
   const dbResposne = await db.run(updateDetailsQuery)
   response.send('Movie Details Updated')
 })
+
+// Delete API In the Movie Tabel
+app.delete('/movies/:movieId', async (request, response) => {
+  const {movieId} = request.params
+  const deleteMovieQuery = `
+    DELETE FROM movie WHERE movie_id = ${movieId};
+  `
+  await db.run(deleteMovieQuery)
+  response.send('Movie Removed')
+})
