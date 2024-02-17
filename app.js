@@ -31,6 +31,7 @@ function snake_caseToCamelCase(dbObject) {
     return {
       movieId: dbObject.movie_id,
       directorId: dbObject.director_id,
+      directorName: dbObject.director_name,
       movieName: dbObject.movie_name,
       leadActor: dbObject.lead_actor,
     }
@@ -118,4 +119,17 @@ app.delete('/movies/:movieId', async (request, response) => {
   `
   await db.run(deleteMovieQuery)
   response.send('Movie Removed')
+})
+
+// API 6 To get directors from director tabel
+app.get('/directors/', async (request, response) => {
+  const getDirectorQuery = `
+    SELECT * FROM director;
+  `
+  const directorArray = await db.all(getDirectorQuery)
+  console.log(directorArray)
+  const desiredResult = directorArray.map(eachDirector =>
+    snake_caseToCamelCase(eachDirector),
+  )
+  response.send(desiredResult)
 })
